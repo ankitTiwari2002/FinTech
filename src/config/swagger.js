@@ -11,6 +11,10 @@ const options = {
         },
         servers: [
             {
+                url: 'https://fin-tech-rho.vercel.app',
+                description: 'Live Vercel Server'
+            },
+            {
                 url: 'http://localhost:3000',
                 description: 'Local Development Server'
             }
@@ -33,4 +37,6 @@ const options = {
 
 const specs = swaggerJsDoc(options);
 
-module.exports = { swaggerUi, specs };
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css";
+
+module.exports = { swaggerUi, specs, CSS_URL };

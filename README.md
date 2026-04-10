@@ -94,6 +94,19 @@ Once the server is running, explore the API at:
 
 ---
 
+## ☁️ Deployment
+
+The project is optimized for **Vercel** serverless deployment. 
+
+**Live Link**: [https://fin-tech-rho.vercel.app/api-docs/](https://fin-tech-rho.vercel.app/api-docs/)
+
+Key configurations:
+- **`vercel.json`**: For routing and runtime setup.
+- **Connection Caching**: Database connections are cached to optimize performance in serverless functions.
+- **CDN Swagger**: Uses a CDN for Swagger UI assets to ensure compatibility with Vercel's MIME type handling.
+
+---
+
 ## 👥 Roles & Permissions
 
 | Feature | Viewer | Analyst | Admin |

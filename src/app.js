@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const errorHandler = require('./middlewares/errorHandler');
-const { swaggerUi, specs } = require('./config/swagger');
+const { swaggerUi, specs, CSS_URL } = require('./config/swagger');
 
 // Route files
 const authRoutes = require('./routes/authRoutes');
@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Swagger Docs
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { customCssUrl: CSS_URL }));
 
 // Mount routes
 app.use('/api/auth', authRoutes);
