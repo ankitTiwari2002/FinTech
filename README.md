@@ -104,6 +104,7 @@ Key configurations:
 - **`vercel.json`**: For routing and runtime setup.
 - **Connection Caching**: Database connections are cached to optimize performance in serverless functions.
 - **CDN Swagger**: Uses a CDN for Swagger UI assets to ensure compatibility with Vercel's MIME type handling.
+- **Security Headers**: Custom Helmet CSP configuration to allow Swagger UI scripts and styles from Cloudflare.
 
 ---
 
