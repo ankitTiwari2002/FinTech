@@ -66,6 +66,11 @@ exports.getSummary = async (req, res, next) => {
             }
         });
     } catch (error) {
+        console.error('Dashboard Controller Error:', error.message);
+        if (typeof next !== 'function') {
+            console.error('CRITICAL: next is not a function in dashboardController');
+            return res.status(500).json({ success: false, error: 'Internal Server Error: middleware chain broken' });
+        }
         next(error);
     }
 };

@@ -6,10 +6,16 @@ const protect = async (req, res, next) => {
 
     if (
         req.headers.authorization &&
-        req.headers.authorization.startsWith('Bearer')
+        req.headers.authorization.toLowerCase().startsWith('bearer')
     ) {
         try {
-            token = req.headers.authorization.split(' ')[1];
+            // Robust token extraction: handle both 'Bearer <token>' and 'Bearer<token>'
+            const parts = req.headers.authorization.split(' ');
+            token = parts.length === 2 ? parts[1] : req.headers.authorization.slice(7);
+
+            if (!token) {
+                return res.status(401).json({ success: false, error: 'Not authorized, token missing' });
+            }
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -23,11 +29,11 @@ const protect = async (req, res, next) => {
 
             next();
         } catch (error) {
-            console.error(error);
+            console.error('Auth Middleware Error:', error.message);
             res.status(401).json({ success: false, error: 'Not authorized, token failed' });
         }
     } else {
-        res.status(401).json({ success: false, error: 'Not authorized, no token' });
+        res.status(401).json({ success: false, error: 'Not authorized, no token provided' });
     }
 };
 
