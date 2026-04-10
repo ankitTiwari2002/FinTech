@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let cachedConn = null;
+let mongoServer = null;
 
 const connectDB = async () => {
     // If we have a cached connection, use it
