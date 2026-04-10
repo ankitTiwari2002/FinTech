@@ -38,9 +38,8 @@ const recordSchema = new mongoose.Schema(
 );
 
 // Middleware to automatically filter out soft-deleted records from standard queries
-recordSchema.pre(/^find/, function (next) {
-    this.find({ isDeleted: { $ne: true } });
-    next();
+recordSchema.pre(/^find/, function () {
+    this.where({ isDeleted: { $ne: true } });
 });
 
 module.exports = mongoose.model('Record', recordSchema);

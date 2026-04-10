@@ -67,10 +67,12 @@ exports.getSummary = async (req, res, next) => {
         });
     } catch (error) {
         console.error('Dashboard Controller Error:', error.message);
-        if (typeof next !== 'function') {
-            console.error('CRITICAL: next is not a function in dashboardController');
-            return res.status(500).json({ success: false, error: 'Internal Server Error: middleware chain broken' });
+        // In Express 5, next(error) is required if you want to use the error handler,
+        // but we ensure next exists to prevent a TypeError if the chain is broken.
+        if (typeof next === 'function') {
+            next(error);
+        } else {
+            res.status(500).json({ success: false, error: 'Internal Server Error: Middleware chain interrupted' });
         }
-        next(error);
     }
 };

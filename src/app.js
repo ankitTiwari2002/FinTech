@@ -54,6 +54,9 @@ app.get('/api-docs', (req, res) => {
     }));
 });
 
+// Redirect root to API docs
+app.get('/', (req, res) => res.redirect('/api-docs'));
+
 // Mount routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
