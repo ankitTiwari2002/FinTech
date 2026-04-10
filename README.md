@@ -106,6 +106,13 @@ Key configurations:
 - **CDN Swagger**: Uses a CDN for Swagger UI assets to ensure compatibility with Vercel's MIME type handling.
 - **Security Headers**: Custom Helmet CSP configuration to allow Swagger UI scripts and styles from Cloudflare.
 
+### ⚠️ Troubleshooting (Vercel)
+- **White Screen on /api-docs**: This is usually caused by the browser blocking assets or the database connection timing out. 
+  - Ensure `MONGODB_URI` is set in Vercel Environment Variables.
+  - Whitelist `0.0.0.0/0` in MongoDB Atlas to allow Vercel's dynamic IPs.
+- **Serverless Timeout**: If the function takes more than 10s to respond, check your MongoDB connection speed and ensure you aren't falling back to an in-memory database on Vercel.
+
+
 ---
 
 ## 👥 Roles & Permissions
