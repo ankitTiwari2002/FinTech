@@ -14,30 +14,26 @@ const seedData = async () => {
 
         console.log('Seeding Initial Data...');
 
-        // Create Users
-        const salt = await bcrypt.genSalt(10);
-        const password = await bcrypt.hash('password123', salt);
+        // Fixed IDs for consistency across restarts
+        const ADMIN_ID = '507f1f77bcf86cd799439011';
+        const ANALYST_ID = '507f1f77bcf86cd799439012';
+        const VIEWER_ID = '507f1f77bcf86cd799439013';
 
         const users = await User.insertMany([
-            { name: 'Admin User', email: 'admin@fintech.com', password, role: 'admin' },
-            { name: 'Analyst User', email: 'analyst@fintech.com', password, role: 'analyst' },
-            { name: 'Viewer User', email: 'viewer@fintech.com', password, role: 'viewer' }
+            { _id: ADMIN_ID, name: 'Admin User', email: 'admin@fintech.com', password, role: 'admin' },
+            { _id: ANALYST_ID, name: 'Analyst User', email: 'analyst@fintech.com', password, role: 'analyst' },
+            { _id: VIEWER_ID, name: 'Viewer User', email: 'viewer@fintech.com', password, role: 'viewer' }
         ]);
 
-        console.log('Users created:');
-        console.log('- admin@fintech.com / password123 (Admin)');
-        console.log('- analyst@fintech.com / password123 (Analyst)');
-        console.log('- viewer@fintech.com / password123 (Viewer)');
+        console.log('Users created with fixed IDs.');
 
-        // Create some Records for Admin
-        const adminId = users[0]._id;
-        
+        // Create some Records for Admin with fixed IDs
         await Record.insertMany([
-            { amount: 5000, type: 'income', category: 'Salary', notes: 'Monthly salary', user_id: adminId },
-            { amount: 150, type: 'expense', category: 'Groceries', notes: 'Walmart', user_id: adminId, date: new Date(Date.now() - 86400000) },
-            { amount: 50, type: 'expense', category: 'Entertainment', notes: 'Movie tickets', user_id: adminId, date: new Date(Date.now() - 86400000 * 2) },
-            { amount: 1200, type: 'income', category: 'Freelance', notes: 'Web project', user_id: adminId, date: new Date(Date.now() - 86400000 * 5) },
-            { amount: 200, type: 'expense', category: 'Utilities', notes: 'Electricity bill', user_id: adminId, date: new Date(Date.now() - 86400000 * 6) }
+            { _id: '6616e0b7f80a2b0015c8e3a1', amount: 5000, type: 'income', category: 'Salary', notes: 'Monthly salary', user_id: ADMIN_ID },
+            { _id: '6616e0b7f80a2b0015c8e3a2', amount: 150, type: 'expense', category: 'Groceries', notes: 'Walmart', user_id: ADMIN_ID, date: new Date(Date.now() - 86400000) },
+            { _id: '6616e0b7f80a2b0015c8e3a3', amount: 50, type: 'expense', category: 'Entertainment', notes: 'Movie tickets', user_id: ADMIN_ID, date: new Date(Date.now() - 86400000 * 2) },
+            { _id: '6616e0b7f80a2b0015c8e3a4', amount: 1200, type: 'income', category: 'Freelance', notes: 'Web project', user_id: ADMIN_ID, date: new Date(Date.now() - 86400000 * 5) },
+            { _id: '6616e0b7f80a2b0015c8e3a5', amount: 200, type: 'expense', category: 'Utilities', notes: 'Electricity bill', user_id: ADMIN_ID, date: new Date(Date.now() - 86400000 * 6) }
         ]);
 
         console.log('Sample financial records created.');
