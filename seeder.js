@@ -9,8 +9,13 @@ const seedData = async () => {
     try {
         await connectDB();
 
-        await User.deleteMany();
-        await Record.deleteMany();
+        const userCount = await User.countDocuments();
+        const recordCount = await Record.countDocuments();
+
+        if (userCount > 0 || recordCount > 0) {
+            console.log('Data already exists. Skipping seeding.');
+            return;
+        }
 
         console.log('Seeding Initial Data...');
 
