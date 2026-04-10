@@ -7,7 +7,7 @@ exports.getRecords = async (req, res, next) => {
     try {
         const { type, category, startDate, endDate, search, page = 1, limit = 10 } = req.query;
 
-        let query = { isDeleted: { $ne: true } };
+        let query = {};
 
         if (type) query.type = type;
         if (category) query.category = category;
@@ -57,7 +57,6 @@ exports.getRecords = async (req, res, next) => {
 // @access  Private/Analyst, Admin
 exports.getRecord = async (req, res, next) => {
     try {
-        console.log(`Debug: Fetching record with ID [${req.params.id}]`);
         const record = await Record.findById(req.params.id).populate('user_id', 'name email');
 
         if (!record) {
