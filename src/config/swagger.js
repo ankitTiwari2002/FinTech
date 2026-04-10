@@ -37,8 +37,11 @@ const options = {
 
 const specs = swaggerJsDoc(options);
 
-const SWAGGER_ASSETS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0";
+const SWAGGER_ASSETS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5";
 const CSS_URL = `${SWAGGER_ASSETS_URL}/swagger-ui.min.css`;
-const JS_URL = `${SWAGGER_ASSETS_URL}/swagger-ui-bundle.js`;
+const JS_URLS = [
+    `${SWAGGER_ASSETS_URL}/swagger-ui-bundle.js`,
+    `${SWAGGER_ASSETS_URL}/swagger-ui-standalone-preset.js`
+];
 
-module.exports = { swaggerUi, specs, CSS_URL, JS_URL };
+module.exports = { swaggerUi, specs, CSS_URL, JS_URLS };
