@@ -65,6 +65,10 @@ exports.getRecord = async (req, res, next) => {
 
         res.status(200).json({ success: true, data: record });
     } catch (error) {
+        // Handle malformed/invalid ObjectId — return a clean 404 instead of a 500
+        if (error.name === 'CastError') {
+            return res.status(404).json({ success: false, error: 'Record not found' });
+        }
         next(error);
     }
 };
@@ -103,6 +107,10 @@ exports.updateRecord = async (req, res, next) => {
 
         res.status(200).json({ success: true, data: record });
     } catch (error) {
+        // Handle malformed/invalid ObjectId — return a clean 404 instead of a 500
+        if (error.name === 'CastError') {
+            return res.status(404).json({ success: false, error: 'Record not found' });
+        }
         next(error);
     }
 };
@@ -124,6 +132,10 @@ exports.deleteRecord = async (req, res, next) => {
 
         res.status(200).json({ success: true, data: {} });
     } catch (error) {
+        // Handle malformed/invalid ObjectId — return a clean 404 instead of a 500
+        if (error.name === 'CastError') {
+            return res.status(404).json({ success: false, error: 'Record not found' });
+        }
         next(error);
     }
 };
